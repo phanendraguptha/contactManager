@@ -2,10 +2,14 @@ var mongoose = require("mongoose");
 require('mongoose-type-email');
 
 var contactSchema = mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   dob: String,
   phone1: {
     type: String,
+    required: true,
     unique: true
   },
   phone2: {
@@ -13,7 +17,10 @@ var contactSchema = mongoose.Schema({
     unique: true,
     allowBlank: true
   },
-  email1: mongoose.SchemaTypes.Email,
+  email1: {
+    type: mongoose.SchemaTypes.Email,
+    required: true
+  },
   email2: {
     type: mongoose.SchemaTypes.Email,
     allowBlank: true
