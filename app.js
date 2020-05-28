@@ -28,6 +28,14 @@ app.set('view engine', 'ejs');
 
 // index
 app.get("/", (req, res, next) => {
+  // eval(require('locus'));
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Contact.find({ name: regex }).sort('name').exec((err, foundData) => {
+      if (err) console.log(err);
+      else res.render("index", { datas: foundData });
+    })
+  }
   Contact.find({}).sort('name').exec((err, foundData) => {
     if (err) console.log(err);
     // else res.send(foundData);
@@ -82,6 +90,10 @@ app.delete("/delete/:id", (req, res) => {
       res.redirect("/");
   })
 })
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 app.listen(port, () => {
   console.log(`running on port ${port}`);
