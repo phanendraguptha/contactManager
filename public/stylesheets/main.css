@@ -1,0 +1,18 @@
+*{
+  font-family: 'Ubuntu', sans-serif;
+}
+
+i {
+  padding-right: 8px;
+}
+
+#hidden {
+  display: none;
+}
+
+
+.absolute {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
