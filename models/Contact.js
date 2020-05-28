@@ -7,7 +7,8 @@ var contactSchema = mongoose.Schema({
   phone1: Number,
   phone2: Number,
   // phone2: {type:Number,allowBlank: true},
-  email: mongoose.SchemaTypes.Email
+  email1: mongoose.SchemaTypes.Email,
+  email2: mongoose.SchemaTypes.Email
 });
 
 var Contact = mongoose.model("Contact", contactSchema);

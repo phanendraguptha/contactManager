@@ -9,7 +9,10 @@
     <ul class="list-group" id="hidden">
       <li class="list-group-item"><i class="fas fa-calendar-alt"></i> DOB: <%= data.dob%>
       </li>
-      <li class="list-group-item"> <i class="fas fa-envelope"></i> Email: <%= data.email%></li>
+      <li class="list-group-item"> <i class="fas fa-envelope"></i> Email1: <%= data.email1%></li>
+      <% if(data.email2){ %>
+      <li class="list-group-item"> <i class="fas fa-envelope"></i> Email2: <%= data.email2%></li>
+      <% } %>
       <li class="list-group-item"> <i class="fas fa-phone"></i> Phone1: <%= data.phone1%></li>
       <% if(data.phone2){ %>
       <li class="list-group-item"> <i class="fas fa-phone"></i> Phone2: <%= data.phone2%></li>
