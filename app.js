@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 // index
 app.get("/", (req, res, next) => {
   Contact.find({}, (err, foundData) => {
-    if (err) console.log("error", err);
+    if (err) console.log(err);
     // else res.send(foundData);
     else res.render("index", { datas: foundData });
   })
@@ -39,6 +39,7 @@ app.get("/", (req, res, next) => {
 app.get("/addContact", (req, res) => {
   res.render("add");
 })
+// add handler
 app.post("/add", (req, res) => {
   Contact.create(req.body, (err, data) => {
     if (err) {
@@ -59,6 +60,26 @@ app.get("/editContact/:id", (req, res) => {
     else {
       res.render("edit", { data: data });
     }
+  })
+})
+// update
+app.put("/update/:id", (req, res) => {
+  Contact.findByIdAndUpdate(req.params.id, req.body, function (err, updatedData) {
+    if (err) {
+      res.redirect("back");
+    }
+    else {
+      res.redirect("/");
+    }
+  });
+})
+// delete
+app.delete("/delete/:id", (req, res) => {
+  Contact.findOneAndDelete({ _id: req.params.id }, (err) => {
+    if (err)
+      console.log(err);
+    else
+      res.redirect("/");
   })
 })
 
