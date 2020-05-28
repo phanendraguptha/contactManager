@@ -1,4 +1,5 @@
 const express = require('express'),
+  methodOverride = require('method-override'),
   app = express(),
   mongoose = require("mongoose"),
   bodyParser = require('body-parser'),
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(methodOverride('_method'))
 
 mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => {
@@ -40,19 +42,24 @@ app.get("/addContact", (req, res) => {
 app.post("/add", (req, res) => {
   Contact.create(req.body, (err, data) => {
     if (err) {
-      // console.log(err);
       res.redirect("/addContact");
     }
     else {
-      // console.log(data);
       res.redirect("/");
     }
   })
 })
 
 // edit
-app.get("/editContact", (req, res) => {
-  res.render("edit");
+app.get("/editContact/:id", (req, res) => {
+  Contact.find({ _id: req.params.id }, (err, data) => {
+    if (err) {
+      res.redirect("/addContact");
+    }
+    else {
+      res.render("edit", { data: data });
+    }
+  })
 })
 
 app.listen(port, () => {
