@@ -14,7 +14,6 @@ var contactSchema = mongoose.Schema({
   },
   phone2: {
     type: Number,
-    unique: true,
     allowBlank: true
   },
   email1: {

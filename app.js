@@ -2,8 +2,10 @@ const express = require('express'),
   methodOverride = require('method-override'),
   app = express(),
   mongoose = require("mongoose"),
+  flash = require("connect-flash"),
   bodyParser = require('body-parser'),
-  Contact = require("./models/Contact");
+  Contact = require("./models/Contact"),
+  session = require("express-session");
 
 require('dotenv').config();
 
@@ -26,6 +28,13 @@ mongoose.set('useCreateIndex', true)
 
 app.set('view engine', 'ejs');
 
+app.use(session({
+  secret: 's3Cur3',
+  name: 'sessionId'
+}))
+
+app.use(flash());
+
 // index
 app.get("/", (req, res, next) => {
   // eval(require('locus'));
@@ -38,19 +47,20 @@ app.get("/", (req, res, next) => {
   }
   Contact.find({}).sort('name').exec((err, foundData) => {
     if (err) console.log(err);
-    // else res.send(foundData);
     else res.render("index", { datas: foundData });
   })
 })
 
 // add
 app.get("/addContact", (req, res) => {
-  res.render("add");
+  res.render("add", { message: req.flash("error") });
 })
 // add handler
 app.post("/add", (req, res) => {
   Contact.create(req.body, (err, data) => {
     if (err) {
+      console.log(err);
+      req.flash("error", "please fill all required fields & phone no should be unique");
       res.redirect("/addContact");
     }
     else {
@@ -91,7 +101,7 @@ app.delete("/delete/:id", (req, res) => {
   })
 })
 
-function escapeRegex(text) {
+const escapeRegex = (text) => {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
