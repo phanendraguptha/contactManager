@@ -7,7 +7,9 @@
     <h4 class="mb-3"><%= data.name%> <i class="fas fa-sort-down text-success float-right" onclick="toggle(event)"></i>
     </h4>
     <ul class="list-group" id="hidden">
+      <% if(data.dob){ %>
       <li class="list-group-item"><i class="fas fa-calendar-alt"></i> DOB: <%= data.dob%>
+        <% } %>
       </li>
       <li class="list-group-item"> <i class="fas fa-envelope"></i> Email1: <%= data.email1%></li>
       <% if(data.email2){ %>
