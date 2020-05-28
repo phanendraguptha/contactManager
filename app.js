@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 
 // index
 app.get("/", (req, res, next) => {
-  Contact.find({}, (err, foundData) => {
+  Contact.find({}).sort('name').exec((err, foundData) => {
     if (err) console.log(err);
     // else res.send(foundData);
     else res.render("index", { datas: foundData });
