@@ -10,6 +10,10 @@ i {
   display: none;
 }
 
+#form1{
+  width: 50%;
+}
+
 .bt{
   background: transparent;
   border-style: none;
@@ -19,4 +23,10 @@ i {
   position: fixed;
   bottom: 40px;
   right: 40px;
+}
+
+@media (max-width:768px){
+  #form1{
+    width: 90%;
+  }
 }
