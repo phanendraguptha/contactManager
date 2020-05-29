@@ -1,5 +1,5 @@
 ## Deployment link
-
+https://rm-phonebook.herokuapp.com/
 ## Development resources
 * Vscode
 * [Notion](https://www.notion.so/contact-manager-b3bfbaacd3744e65887df7691756a508) (my workflow)
