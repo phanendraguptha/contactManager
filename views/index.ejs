@@ -2,7 +2,7 @@
 
 <section class="container">
   <h1 class="text-center mb-3">All Contacts</h1>
-  <% datas.forEach(function(data){ %>
+  <% datas.forEach((data)=>{ %>
   <div class="card card-body mb-3">
     <h4 class="mb-3"><%= data.name%> <i class="fas fa-sort-down text-success float-right" onclick="toggle(event)"></i>
     </h4>
@@ -29,6 +29,25 @@
   </div>
   <% }); %>
 
+  <ul class="pagination justify-content-center">
+    <% if(page ==1){ %>
+    <li class="page-item <%=active%>"><a class="page-link" href="/?page=1">1</a></li>
+    <% }else{ %>
+    <li class="page-item"><a class="page-link" href="/?page=1">1</a></li>
+    <% } %>
+
+    <% if(page ==2){ %>
+    <li class="page-item <%=active%>"><a class="page-link" href="/?page=2">2</a></li>
+    <% }else{ %>
+    <li class="page-item"><a class="page-link" href="/?page=2">2</a></li>
+    <% } %>
+
+    <% if(page ==3){ %>
+    <li class="page-item <%=active%>"><a class="page-link" href="/?page=3">3</a></li>
+    <% }else{ %>
+    <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
+    <% } %>
+  </ul>
 
   <a href="/addContact" class="btn btn-primary rounded-pill shadow-lg absolute"> <i class="fas fa-plus"></i>
     addContact</a>

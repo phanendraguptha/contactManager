@@ -30,7 +30,9 @@ app.set('view engine', 'ejs');
 
 app.use(session({
   secret: 's3Cur3',
-  name: 'sessionId'
+  name: 'sessionId',
+  resave: true,
+  saveUninitialized: true
 }))
 
 app.use(flash());
@@ -42,12 +44,20 @@ app.get("/", (req, res, next) => {
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     Contact.find({ name: regex }).sort('name').exec((err, foundData) => {
       if (err) console.log(err);
-      else res.render("index", { datas: foundData });
+      else res.render("index", { datas: foundData, page: 1, active: "active" });
     })
   }
-  Contact.find({}).sort('name').exec((err, foundData) => {
+  else if (req.query.page) {
+    const page = req.query.page - 1;
+    const offset = page * 4;
+    Contact.find({}).sort('name').skip(offset).limit(4).exec((err, foundData) => {
+      if (err) console.log(err);
+      else res.render("index", { datas: foundData, page: page + 1, active: "active" });
+    })
+  }
+  Contact.find({}).sort('name').limit(4).exec((err, foundData) => {
     if (err) console.log(err);
-    else res.render("index", { datas: foundData });
+    else res.render("index", { datas: foundData, page: 1, active: "active" });
   })
 })
 
