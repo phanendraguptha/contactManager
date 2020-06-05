@@ -8,7 +8,7 @@ var contactSchema = mongoose.Schema({
   },
   dob: String,
   phone1: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },
