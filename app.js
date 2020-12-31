@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(methodOverride('_method'))
 
+//useNewUrlParser -> to parse mongodb connection strings
 mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => {
     console.log(err);
